@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class FormCar : Form
+    public partial class FormTruck : Form
     {
-        private SportCar car;
+        private DumpTruck truck;
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        public FormCar()
+        public FormTruck()
         {
             InitializeComponent();
         }
@@ -29,15 +29,15 @@ namespace WindowsFormsApp1
         {
             Bitmap bmp = new Bitmap(pictureBoxCar.Width, pictureBoxCar.Height);
             Graphics gr = Graphics.FromImage(bmp);
-            car.DrawTransport(gr);
+            truck.DrawTruck(gr);
             pictureBoxCar.Image = bmp;
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            car = new SportCar(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue, Color.Black, true, true, true, true);
-            car.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxCar.Width, pictureBoxCar.Height);
+            truck = new DumpTruck(rnd.Next(100, 300), rnd.Next(1000, 3000), Color.Black, Color.Orange, true, true);
+            truck.SetPosition(rnd.Next(10, 60), rnd.Next(100, 400), pictureBoxCar.Width, pictureBoxCar.Height);
             Draw();
         }
 
@@ -47,16 +47,16 @@ namespace WindowsFormsApp1
             switch (name)
             {
                 case "buttonUp":
-                    car.MoveTransport(Direction.Up);
+                    truck.MoveTruck(Enumeration.Up);
                     break;
                 case "buttonDown":
-                    car.MoveTransport(Direction.Down);
+                    truck.MoveTruck(Enumeration.Down);
                     break;
                 case "buttonLeft":
-                    car.MoveTransport(Direction.Left);
+                    truck.MoveTruck(Enumeration.Left);
                     break;
                 case "buttonRight":
-                    car.MoveTransport(Direction.Right);
+                    truck.MoveTruck(Enumeration.Right);
                     break;
             }
             Draw();

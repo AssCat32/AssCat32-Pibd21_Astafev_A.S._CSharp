@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    public enum Direction
+    public enum Enumeration
     {
         Up,
 

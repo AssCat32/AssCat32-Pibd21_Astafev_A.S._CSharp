@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class FormCar
+    partial class FormTruck
     {
         /// <summary>
         /// Обязательная переменная конструктора.
