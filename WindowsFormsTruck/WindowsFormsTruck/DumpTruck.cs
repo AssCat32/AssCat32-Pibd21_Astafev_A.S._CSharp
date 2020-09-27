@@ -1,44 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
+using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsTruck
 {
     //<summary>
     //Класс отрисовки спортивного автомобиля
     //</summary>
-    class DumpTruck
+    class DumpTruck : Truck
     {
-        //<summary>
-        //Стартовые координаты автомобиля X Y 
-        //</summary>
-        private float startPosX;
-        private float startPosY;
-
-        //<summary>
-        //Ширина и высота самосвала
-        //</summary>
-        private int pictureWidth = 900;
-        private int pictureHeight = 500;
-
-        //<summary>
-        //Максимальная скорость самосвала
-        //</summary>
-        public int MaxSpeed { private set; get; }
-
-        //<summary>
-        //Вес самосвала
-        //</summary>
-        public float Weight { private set; get; }
-
-        //<summary>
-        //Основной цвет самосвала
-        //</summary>
-        public Color MainColor { private set; get; }
-
         //<summary>
         //Дополнительный цвет самосвала
         //</summary>
@@ -57,7 +30,7 @@ namespace WindowsFormsApp1
         //<summary>
         //Конструктор
         //</summary>
-        public DumpTruck(int maxSpeed, float weight, Color mainColor, Color dopColor, bool trailer, bool cargo)
+        public DumpTruck(int maxSpeed, float weight, Color mainColor, Color dopColor, bool trailer, bool cargo) : base(maxSpeed, weight, mainColor, 112, 42)
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
@@ -67,16 +40,6 @@ namespace WindowsFormsApp1
             Cargo = cargo;
         }
 
-        //<summary>
-        //Установка позиции грузовика
-        //</summary>
-        public void SetPosition(int x, int y, int width, int height)
-        {
-            startPosX = x;
-            startPosY = y;
-            pictureWidth = width;
-            pictureHeight = height;
-        }
 
         /// <summary>
         /// Изменение направления пермещения
@@ -91,30 +54,30 @@ namespace WindowsFormsApp1
             {
                 //вправо
                 case Enumeration.Right:
-                    if (startPosX + step < pictureWidth - truckWidth)
+                    if (_startPosX + step < _pictureWidth - truckWidth)
                     {
-                        startPosX += step;
+                        _startPosX += step;
                     }
                     break;
                 //влево
                 case Enumeration.Left:
-                    if (startPosX - step > truckLeftIndent)
+                    if (_startPosX - step > truckLeftIndent)
                     {
-                        startPosX -= step;
+                        _startPosX -= step;
                     }
                     break;
                 //вверх
                 case Enumeration.Up:
-                    if (startPosY - step > truckHeight)
+                    if (_startPosY - step > truckHeight)
                     {
-                        startPosY -= step;
+                        _startPosY -= step;
                     }
                     break;
                 //вниз
                 case Enumeration.Down:
-                    if (startPosY + step < pictureHeight - truckDownIndent)
+                    if (_startPosY + step < _pictureHeight - truckDownIndent)
                     {
-                        startPosY += step;
+                        _startPosY += step;
                     }
                     break;
             }
@@ -124,7 +87,7 @@ namespace WindowsFormsApp1
         /// Отрисовка грузовика
         /// </summary>
         /// <param name="g"></param>
-        public override void DrawTruck(Graphics g)
+        public override void DrawTransport(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
             Brush br = new SolidBrush(MainColor);
@@ -133,8 +96,8 @@ namespace WindowsFormsApp1
             Brush brBlue = new SolidBrush(Color.LightBlue);
             Brush brWhite = new SolidBrush(Color.White);
 
-            base.DrawTruck(g);
-                
+            base.DrawTransport(g);
+
 
             //Груз
             if (Trailer)
@@ -143,16 +106,14 @@ namespace WindowsFormsApp1
                 if (Cargo)
                 {
 
-                    g.FillRectangle(brGray, startPosX + 10, startPosY - 50, 34, 5);
-                    g.FillRectangle(brGray, startPosX + 7, startPosY - 47, 41, 10);
-                    g.FillRectangle(brGray, startPosX + 1, startPosY - 44, 70, 7);
+                    g.FillRectangle(brGray, _startPosX + 10, _startPosY - 50, 34, 5);
+                    g.FillRectangle(brGray, _startPosX + 7, _startPosY - 47, 41, 10);
+                    g.FillRectangle(brGray, _startPosX + 1, _startPosY - 44, 70, 7);
                 }
-                g.FillRectangle(brDop, startPosX - 2, startPosY - 36, 74, 34);
-                g.FillRectangle(brDop, startPosX - 5, startPosY - 38, 80, 30);
-                g.FillRectangle(brDop, startPosX + 55, startPosY - 40, 30, 3);
+                g.FillRectangle(brDop, _startPosX - 2, _startPosY - 36, 74, 34);
+                g.FillRectangle(brDop, _startPosX - 5, _startPosY - 38, 80, 30);
+                g.FillRectangle(brDop, _startPosX + 55, _startPosY - 40, 30, 3);
             }
         }
     }
 }
-
-

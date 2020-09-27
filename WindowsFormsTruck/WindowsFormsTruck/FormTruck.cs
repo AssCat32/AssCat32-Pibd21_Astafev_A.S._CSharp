@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsTruck
 {
     public partial class FormTruck : Form
     {
-        private ITransport BaseTruck;
+
+        private ITransport truck;
 
         /// <summary>
         /// Конструктор
@@ -27,25 +28,25 @@ namespace WindowsFormsApp1
         /// </summary>
         private void Draw()
         {
-            Bitmap bmp = new Bitmap(pictureBoxCar.Width, pictureBoxCar.Height);
+            Bitmap bmp = new Bitmap(pictureBoxTruck.Width, pictureBoxTruck.Height);
             Graphics gr = Graphics.FromImage(bmp);
-            truck.DrawTruck(gr);
-            pictureBoxCar.Image = bmp;
+            truck.DrawTransport(gr);
+            pictureBoxTruck.Image = bmp;
         }
 
-        private void buttonCreate_Click(object sender, EventArgs e)
-        {
-            Random rnd = new Random();
-            truck = new Truck(rnd.Next(100, 300), rnd.Next(1000, 3000), Color.Black, Color.Orange, true, true);
-            truck.SetPosition(rnd.Next(10, 60), rnd.Next(100, 400), pictureBoxCar.Width, pictureBoxCar.Height);
-            Draw();
-        }
-
-        private void buttonCreate_Click(object sender, EventArgs e)
+        private void buttonCreateDumpTruck_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
             truck = new DumpTruck(rnd.Next(100, 300), rnd.Next(1000, 3000), Color.Black, Color.Orange, true, true);
-            truck.SetPosition(rnd.Next(10, 60), rnd.Next(100, 400), pictureBoxCar.Width, pictureBoxCar.Height);
+            truck.SetPosition(rnd.Next(10, 60), rnd.Next(100, 400), pictureBoxTruck.Width, pictureBoxTruck.Height);
+            Draw();
+        }
+
+        private void buttonCreateTruck_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            truck = new Truck(rnd.Next(100, 300), rnd.Next(1000, 3000), Color.Black);
+            truck.SetPosition(rnd.Next(10, 60), rnd.Next(100, 400), pictureBoxTruck.Width, pictureBoxTruck.Height);
             Draw();
         }
 
@@ -55,19 +56,21 @@ namespace WindowsFormsApp1
             switch (name)
             {
                 case "buttonUp":
-                    truck.MoveTruck(Enumeration.Up);
+                    truck.MoveTransport(Enumeration.Up);
                     break;
                 case "buttonDown":
-                    truck.MoveTruck(Enumeration.Down);
+                    truck.MoveTransport(Enumeration.Down);
                     break;
                 case "buttonLeft":
-                    truck.MoveTruck(Enumeration.Left);
+                    truck.MoveTransport(Enumeration.Left);
                     break;
                 case "buttonRight":
-                    truck.MoveTruck(Enumeration.Right);
+                    truck.MoveTransport(Enumeration.Right);
                     break;
             }
             Draw();
         }
+
+        
     }
 }
