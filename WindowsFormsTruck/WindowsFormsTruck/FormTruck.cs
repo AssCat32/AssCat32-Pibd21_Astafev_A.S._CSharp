@@ -24,13 +24,23 @@ namespace WindowsFormsTruck
         }
 
         /// <summary>
+        /// Передача машины на форму
+        /// </summary>
+        /// <param name="truck"></param>
+        public void SetCar(ITransport truck)
+        {
+            this.truck = truck;
+            Draw();
+        }
+
+        /// <summary>
         /// Метод отрисовки машины
         /// </summary>
         private void Draw()
         {
             Bitmap bmp = new Bitmap(pictureBoxTruck.Width, pictureBoxTruck.Height);
             Graphics gr = Graphics.FromImage(bmp);
-            truck.DrawTransport(gr);
+            truck?.DrawTransport(gr);
             pictureBoxTruck.Image = bmp;
         }
 
@@ -71,6 +81,14 @@ namespace WindowsFormsTruck
             Draw();
         }
 
-        
+        private void FormTruck_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBoxTruck_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

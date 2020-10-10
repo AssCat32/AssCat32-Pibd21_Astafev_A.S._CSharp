@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormGarage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGarage.Designer.cs">
+      <DependentUpon>FormGarage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Garage.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="DumpTruck.cs" />
     <Compile Include="Enumeration.cs" />
@@ -59,6 +66,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vehicle.cs" />
+    <EmbeddedResource Include="FormGarage.resx">
+      <DependentUpon>FormGarage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormTruck.resx">
       <DependentUpon>FormTruck.cs</DependentUpon>
     </EmbeddedResource>
