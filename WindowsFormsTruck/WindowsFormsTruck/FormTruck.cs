@@ -71,6 +71,9 @@ namespace WindowsFormsTruck
             Draw();
         }
 
-        
+        private void FormTruck_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

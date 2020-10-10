@@ -129,6 +129,7 @@
             this.Controls.Add(this.pictureBoxTruck);
             this.Name = "FormTruck";
             this.Text = "Грузовики";
+            this.Load += new System.EventHandler(this.FormTruck_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTruck)).EndInit();
             this.ResumeLayout(false);
 

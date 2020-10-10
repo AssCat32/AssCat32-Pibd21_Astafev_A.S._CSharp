@@ -40,49 +40,6 @@ namespace WindowsFormsTruck
             Cargo = cargo;
         }
 
-
-        /// <summary>
-        /// Изменение направления пермещения
-        /// </summary>
-        /// <param name="direction">Направление</param>
-        public void MoveTruck(Enumeration enumeration)
-        {
-            float step = MaxSpeed * 100 / Weight;
-            int truckLeftIndent = 1;
-            int truckDownIndent = 12;
-            switch (enumeration)
-            {
-                //вправо
-                case Enumeration.Right:
-                    if (_startPosX + step < _pictureWidth - truckWidth)
-                    {
-                        _startPosX += step;
-                    }
-                    break;
-                //влево
-                case Enumeration.Left:
-                    if (_startPosX - step > truckLeftIndent)
-                    {
-                        _startPosX -= step;
-                    }
-                    break;
-                //вверх
-                case Enumeration.Up:
-                    if (_startPosY - step > truckHeight)
-                    {
-                        _startPosY -= step;
-                    }
-                    break;
-                //вниз
-                case Enumeration.Down:
-                    if (_startPosY + step < _pictureHeight - truckDownIndent)
-                    {
-                        _startPosY += step;
-                    }
-                    break;
-            }
-        }
-
         /// <summary>
         /// Отрисовка грузовика
         /// </summary>
@@ -97,7 +54,6 @@ namespace WindowsFormsTruck
             Brush brWhite = new SolidBrush(Color.White);
 
             base.DrawTransport(g);
-
 
             //Груз
             if (Trailer)
