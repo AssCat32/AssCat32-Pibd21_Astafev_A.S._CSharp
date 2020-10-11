@@ -99,5 +99,10 @@ namespace WindowsFormsTruck
                 Draw();
             }
         }
+
+        private void FormGarage_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -119,6 +119,7 @@
             this.Controls.Add(this.pictureBoxGarage);
             this.Name = "FormGarage";
             this.Text = "Гаражи";
+            this.Load += new System.EventHandler(this.FormGarage_Load);
             this.maskedBox.ResumeLayout(false);
             this.maskedBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGarage)).EndInit();
