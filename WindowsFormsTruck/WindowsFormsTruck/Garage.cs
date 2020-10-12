@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsTruck
 {
-    class Garage<T> where T : class, ITransport
+    public class Garage<T> where T : class, ITransport
     {
         /// <summary>
         /// Массив объектов, которые храним
         /// </summary>
-        private readonly T[] _places;
+        private readonly List<T> _places;
+        /// <summary>
+        /// Максимальное количество мест на парковке
+        /// </summary>
+        private readonly int _maxCount;
         /// <summary>
         /// Ширина окна отрисовки
         /// </summary>
@@ -39,9 +43,10 @@ namespace WindowsFormsTruck
         {
             int width = picWidth / _placeSizeWidth;
             int height = picHeight / _placeSizeHeight;
-            _places = new T[width * height];
+            _maxCount = width * height;
             pictureWidth = picWidth;
             pictureHeight = picHeight;
+            _places = new List<T>();
         }
         /// <summary>
         /// Перегрузка оператора сложения
@@ -52,27 +57,12 @@ namespace WindowsFormsTruck
         /// <returns></returns>
         public static bool operator +(Garage<T> p, T truck)
         {
-            int i, j, dopWidth = 8, dopHeight = 60;
-            for (int n = 0; n < p._places.Length; n++)
+            if (p._places.Count >= p._maxCount)
             {
-                if (p._places[n] == null)
-                {
-                    p._places[n] = truck;
-                    i = 0;
-                    j = n;
-
-                    while (j >= p.pictureHeight / p._placeSizeHeight)
-                    {
-                        j -= p.pictureHeight / p._placeSizeHeight;
-                        i++;
-                    }
-
-                    truck?.SetPosition(i * p._placeSizeWidth + dopWidth, j * p._placeSizeHeight + dopHeight, p.pictureWidth, p.pictureHeight);
-
-                    return true;
-                }
+                return false;
             }
-            return false;
+            p._places.Add(truck);
+            return true;
         }
         /// <summary>
         /// Перегрузка оператора вычитания
@@ -83,12 +73,12 @@ namespace WindowsFormsTruck
         /// <returns></returns>
         public static T operator -(Garage<T> p, int index)
         {
-            if (index < -1 || index > p._places.Length)
+            if (index < -1 || index > p._places.Count)
             {
                 return null;
             }
             T truck = p._places[index];
-            p._places[index] = null;
+            p._places.RemoveAt(index);
             return truck;
         }
         /// <summary>
@@ -98,9 +88,10 @@ namespace WindowsFormsTruck
         public void Draw(Graphics g)
         {
             DrawMarking(g);
-            for (int i = 0; i < _places.Length; i++)
-            {
-                _places[i]?.DrawTransport(g);
+            for(int i = 0; i < _places.Count; ++i)
+{
+                _places[i].SetPosition(5 + i / 5 * _placeSizeWidth + 3, i % 5 * _placeSizeHeight + 63, pictureWidth, pictureHeight);
+                _places[i].DrawTransport(g);
             }
         }
         /// <summary>

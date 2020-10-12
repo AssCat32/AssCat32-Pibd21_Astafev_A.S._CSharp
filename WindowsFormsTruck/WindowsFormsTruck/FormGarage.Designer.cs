@@ -35,13 +35,18 @@
             this.maskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBoxGarage = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxNewLevelName = new System.Windows.Forms.TextBox();
+            this.buttonAddGarage = new System.Windows.Forms.Button();
+            this.listBoxGarage = new System.Windows.Forms.ListBox();
+            this.buttonDelParking = new System.Windows.Forms.Button();
             this.maskedBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGarage)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonSetTruck
             // 
-            this.buttonSetTruck.Location = new System.Drawing.Point(746, 12);
+            this.buttonSetTruck.Location = new System.Drawing.Point(747, 219);
             this.buttonSetTruck.Name = "buttonSetTruck";
             this.buttonSetTruck.Size = new System.Drawing.Size(129, 63);
             this.buttonSetTruck.TabIndex = 1;
@@ -51,7 +56,7 @@
             // 
             // buttonSetDumpTruck
             // 
-            this.buttonSetDumpTruck.Location = new System.Drawing.Point(747, 81);
+            this.buttonSetDumpTruck.Location = new System.Drawing.Point(747, 288);
             this.buttonSetDumpTruck.Name = "buttonSetDumpTruck";
             this.buttonSetDumpTruck.Size = new System.Drawing.Size(128, 63);
             this.buttonSetDumpTruck.TabIndex = 2;
@@ -64,7 +69,7 @@
             this.maskedBox.Controls.Add(this.buttonTakeTruck);
             this.maskedBox.Controls.Add(this.maskedTextBox);
             this.maskedBox.Controls.Add(this.label1);
-            this.maskedBox.Location = new System.Drawing.Point(747, 150);
+            this.maskedBox.Location = new System.Drawing.Point(747, 357);
             this.maskedBox.Name = "maskedBox";
             this.maskedBox.Size = new System.Drawing.Size(128, 92);
             this.maskedBox.TabIndex = 3;
@@ -108,22 +113,72 @@
             this.pictureBoxGarage.TabIndex = 0;
             this.pictureBoxGarage.TabStop = false;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(784, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Гаражи:";
+            // 
+            // textBoxNewLevelName
+            // 
+            this.textBoxNewLevelName.Location = new System.Drawing.Point(746, 25);
+            this.textBoxNewLevelName.Name = "textBoxNewLevelName";
+            this.textBoxNewLevelName.Size = new System.Drawing.Size(129, 20);
+            this.textBoxNewLevelName.TabIndex = 5;
+            // 
+            // buttonAddGarage
+            // 
+            this.buttonAddGarage.Location = new System.Drawing.Point(746, 51);
+            this.buttonAddGarage.Name = "buttonAddGarage";
+            this.buttonAddGarage.Size = new System.Drawing.Size(130, 23);
+            this.buttonAddGarage.TabIndex = 6;
+            this.buttonAddGarage.Text = "Добавить гараж";
+            this.buttonAddGarage.UseVisualStyleBackColor = true;
+            this.buttonAddGarage.Click += new System.EventHandler(this.buttonAddGarage_Click);
+            // 
+            // listBoxGarage
+            // 
+            this.listBoxGarage.FormattingEnabled = true;
+            this.listBoxGarage.Location = new System.Drawing.Point(747, 81);
+            this.listBoxGarage.Name = "listBoxGarage";
+            this.listBoxGarage.Size = new System.Drawing.Size(128, 95);
+            this.listBoxGarage.TabIndex = 7;
+            this.listBoxGarage.SelectedIndexChanged += new System.EventHandler(this.listBoxGarage_SelectedIndexChanged);
+            // 
+            // buttonDelParking
+            // 
+            this.buttonDelParking.Location = new System.Drawing.Point(746, 182);
+            this.buttonDelParking.Name = "buttonDelParking";
+            this.buttonDelParking.Size = new System.Drawing.Size(129, 26);
+            this.buttonDelParking.TabIndex = 8;
+            this.buttonDelParking.Text = "Удалить гараж";
+            this.buttonDelParking.UseVisualStyleBackColor = true;
+            this.buttonDelParking.Click += new System.EventHandler(this.buttonDelParking_Click);
+            // 
             // FormGarage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 461);
+            this.Controls.Add(this.buttonDelParking);
+            this.Controls.Add(this.listBoxGarage);
+            this.Controls.Add(this.buttonAddGarage);
+            this.Controls.Add(this.textBoxNewLevelName);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.maskedBox);
             this.Controls.Add(this.buttonSetDumpTruck);
             this.Controls.Add(this.buttonSetTruck);
             this.Controls.Add(this.pictureBoxGarage);
             this.Name = "FormGarage";
             this.Text = "Гаражи";
-            this.Load += new System.EventHandler(this.FormGarage_Load);
             this.maskedBox.ResumeLayout(false);
             this.maskedBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGarage)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -136,5 +191,10 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonTakeTruck;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxNewLevelName;
+        private System.Windows.Forms.Button buttonAddGarage;
+        private System.Windows.Forms.ListBox listBoxGarage;
+        private System.Windows.Forms.Button buttonDelParking;
     }
 }
