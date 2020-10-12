@@ -86,9 +86,9 @@ namespace WindowsFormsTruck
         {
             if (listBoxGarage.SelectedIndex > -1)
             {
-                if (MessageBox.Show($"Удалить парковку {listBoxGarage.SelectedItem.ToString()}?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show($"Удалить парковку {textBoxNewLevelName.Text}?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    garageCollection.DelGarage(listBoxGarage.SelectedItem.ToString());
+                    garageCollection.DelGarage(textBoxNewLevelName.Text);
                     ReloadLevels();
                 }
             }

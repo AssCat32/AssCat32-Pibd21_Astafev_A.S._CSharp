@@ -68,7 +68,11 @@ namespace WindowsFormsCars
         {
             get
             {
-                return garageStages[ind];
+                if (garageStages.ContainsKey(ind))
+                {
+                   return garageStages[ind];
+                }
+                return null;
             }
         }
     }

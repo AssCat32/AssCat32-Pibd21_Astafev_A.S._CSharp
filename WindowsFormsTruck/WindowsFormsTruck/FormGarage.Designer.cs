@@ -46,7 +46,7 @@
             // 
             // buttonSetTruck
             // 
-            this.buttonSetTruck.Location = new System.Drawing.Point(747, 219);
+            this.buttonSetTruck.Location = new System.Drawing.Point(748, 230);
             this.buttonSetTruck.Name = "buttonSetTruck";
             this.buttonSetTruck.Size = new System.Drawing.Size(129, 63);
             this.buttonSetTruck.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             // buttonSetDumpTruck
             // 
-            this.buttonSetDumpTruck.Location = new System.Drawing.Point(747, 288);
+            this.buttonSetDumpTruck.Location = new System.Drawing.Point(748, 299);
             this.buttonSetDumpTruck.Name = "buttonSetDumpTruck";
             this.buttonSetDumpTruck.Size = new System.Drawing.Size(128, 63);
             this.buttonSetDumpTruck.TabIndex = 2;
@@ -69,9 +69,9 @@
             this.maskedBox.Controls.Add(this.buttonTakeTruck);
             this.maskedBox.Controls.Add(this.maskedTextBox);
             this.maskedBox.Controls.Add(this.label1);
-            this.maskedBox.Location = new System.Drawing.Point(747, 357);
+            this.maskedBox.Location = new System.Drawing.Point(747, 368);
             this.maskedBox.Name = "maskedBox";
-            this.maskedBox.Size = new System.Drawing.Size(128, 92);
+            this.maskedBox.Size = new System.Drawing.Size(128, 81);
             this.maskedBox.TabIndex = 3;
             this.maskedBox.TabStop = false;
             this.maskedBox.Text = "Забрать машину";
@@ -79,7 +79,7 @@
             // 
             // buttonTakeTruck
             // 
-            this.buttonTakeTruck.Location = new System.Drawing.Point(28, 66);
+            this.buttonTakeTruck.Location = new System.Drawing.Point(23, 55);
             this.buttonTakeTruck.Name = "buttonTakeTruck";
             this.buttonTakeTruck.Size = new System.Drawing.Size(73, 20);
             this.buttonTakeTruck.TabIndex = 6;
@@ -144,13 +144,13 @@
             this.listBoxGarage.FormattingEnabled = true;
             this.listBoxGarage.Location = new System.Drawing.Point(747, 81);
             this.listBoxGarage.Name = "listBoxGarage";
-            this.listBoxGarage.Size = new System.Drawing.Size(128, 95);
+            this.listBoxGarage.Size = new System.Drawing.Size(128, 82);
             this.listBoxGarage.TabIndex = 7;
             this.listBoxGarage.SelectedIndexChanged += new System.EventHandler(this.listBoxGarage_SelectedIndexChanged);
             // 
             // buttonDelParking
             // 
-            this.buttonDelParking.Location = new System.Drawing.Point(746, 182);
+            this.buttonDelParking.Location = new System.Drawing.Point(746, 169);
             this.buttonDelParking.Name = "buttonDelParking";
             this.buttonDelParking.Size = new System.Drawing.Size(129, 26);
             this.buttonDelParking.TabIndex = 8;
