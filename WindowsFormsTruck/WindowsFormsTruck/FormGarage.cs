@@ -16,6 +16,9 @@ namespace WindowsFormsTruck
         /// <summary>
         /// Объект от класса-коллекции парковок
         /// </summary>
+        /// 
+  
+
         private readonly GarageCollection garageCollection;
         public FormGarage()
         {
@@ -174,5 +177,45 @@ namespace WindowsFormsTruck
         {
             Draw();
         }
+
+        /// <summary>
+        /// Обработка нажатия кнопки "Добавить автомобиль"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonSetCar_Click(object sender, EventArgs e)
+        {
+            var formCarConfig = new FormTruckConfig();
+            formCarConfig.AddEvent(AddTruck);
+            formCarConfig.AddEvent(sendMessage);
+            formCarConfig.Show();
+        }
+        /// <summary>
+        /// Метод добавления машины
+        /// </summary>
+        /// <param name="car"></param>
+        private void AddTruck(Vehicle truck)
+        {
+            if (truck != null && listBoxGarage.SelectedIndex > -1)
+            {
+                if ((garageCollection[listBoxGarage.SelectedItem.ToString()]) + truck)
+                {
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Машину не удалось поставить");
+                }
+            }
+        }
+
+        public void sendMessage(Vehicle truck)
+        {
+            if (truck != null)
+            {
+                MessageBox.Show("Машина поставлена!");
+            }
+        }
+
     }
 }

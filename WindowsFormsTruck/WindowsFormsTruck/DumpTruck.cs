@@ -115,5 +115,14 @@ namespace WindowsFormsTruck
                 g.FillRectangle(brDop, _startPosX + 55, _startPosY - 40, 30, 3);
             }
         }
+
+        /// <summary>
+        /// Смена дополнительного цвета
+        /// </summary>
+        /// <param name="color"></param>
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
+        }
     }
 }

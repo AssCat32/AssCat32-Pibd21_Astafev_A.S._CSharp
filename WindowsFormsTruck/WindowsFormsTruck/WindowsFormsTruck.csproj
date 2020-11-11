@@ -52,6 +52,12 @@
     <Compile Include="FormGarage.Designer.cs">
       <DependentUpon>FormGarage.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormTruckConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTruckConfig.Designer.cs">
+      <DependentUpon>FormTruckConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Garage.cs" />
     <Compile Include="GarageCollection.cs" />
     <Compile Include="Truck.cs" />
@@ -72,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormTruck.resx">
       <DependentUpon>FormTruck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTruckConfig.resx">
+      <DependentUpon>FormTruckConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
