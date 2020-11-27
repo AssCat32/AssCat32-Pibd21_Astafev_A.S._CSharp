@@ -187,7 +187,6 @@ namespace WindowsFormsTruck
         {
             var formCarConfig = new FormTruckConfig();
             formCarConfig.AddEvent(AddTruck);
-            formCarConfig.AddEvent(sendMessage);
             formCarConfig.Show();
         }
         /// <summary>
@@ -209,13 +208,45 @@ namespace WindowsFormsTruck
             }
         }
 
-        public void sendMessage(Vehicle truck)
+
+        /// <summary>
+        /// Обработка нажатия пункта меню "Сохранить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (truck != null)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Машина поставлена!");
+                if (garageCollection.SaveData(saveFileDialog.FileName))
+                {
+                    MessageBox.Show("Сохранение прошло успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не сохранилось", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
+        /// <summary>
+        /// Обработка нажатия пункта меню "Загрузить"
+        /// </summary>
+        private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (garageCollection.LoadData(openFileDialog.FileName))
+                {
+                    MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ReloadLevels();
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

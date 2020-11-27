@@ -256,6 +256,7 @@
             this.mainColor.TabIndex = 8;
             this.mainColor.Text = "Основый цвет";
             this.mainColor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.mainColor.Click += new System.EventHandler(this.mainColor_Click);
             this.mainColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.mainColor_DragDrop);
             this.mainColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.mainColor_DragEnter);
             // 

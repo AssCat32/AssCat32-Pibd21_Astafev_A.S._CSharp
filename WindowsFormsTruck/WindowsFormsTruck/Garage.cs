@@ -59,7 +59,7 @@ namespace WindowsFormsTruck
         {
             if (p._places.Count >= p._maxCount)
             {
-                return false;
+                throw new GarageOverflowException();
             }
             p._places.Add(truck);
             return true;
@@ -75,7 +75,7 @@ namespace WindowsFormsTruck
         {
             if (index < -1 || index > p._places.Count)
             {
-                return null;
+                throw new GarageNotFoundException(index);
             }
             T truck = p._places[index];
             p._places.RemoveAt(index);
@@ -111,6 +111,20 @@ namespace WindowsFormsTruck
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth,
                 (pictureHeight / _placeSizeHeight) * _placeSizeHeight);
             }
+        }
+
+        /// <summary>
+        /// Функция получения элементы из списка
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public T GetNext(int index)
+        {
+            if (index < 0 || index >= _places.Count)
+            {
+                return null;
+            }
+            return _places[index];
         }
     }
 }

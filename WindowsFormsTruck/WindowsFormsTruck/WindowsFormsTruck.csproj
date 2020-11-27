@@ -60,6 +60,8 @@
     </Compile>
     <Compile Include="Garage.cs" />
     <Compile Include="GarageCollection.cs" />
+    <Compile Include="GarageNotFoundException.cs" />
+    <Compile Include="GarageOverflowException.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="DumpTruck.cs" />
     <Compile Include="Enumeration.cs" />

@@ -142,5 +142,9 @@ namespace WindowsFormsTruck
             Close();
         }
 
+        private void mainColor_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

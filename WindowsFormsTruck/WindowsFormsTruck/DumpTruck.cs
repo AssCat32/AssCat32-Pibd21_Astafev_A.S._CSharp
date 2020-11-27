@@ -40,6 +40,23 @@ namespace WindowsFormsTruck
             Cargo = cargo;
         }
 
+        /// <summary>
+        /// Конструктор для загрузки с файла
+        /// </summary>
+        /// <param name="info"></param>
+        public DumpTruck(string info) : base(info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 6)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                DopColor = Color.FromName(strs[3]);
+                Trailer = Convert.ToBoolean(strs[4]);
+                Cargo = Convert.ToBoolean(strs[5]);
+            }
+        }
 
         /// <summary>
         /// Изменение направления пермещения
@@ -123,6 +140,11 @@ namespace WindowsFormsTruck
         public void SetDopColor(Color color)
         {
             DopColor = color;
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}{separator}{DopColor.Name}{separator}{Trailer}{separator}{Cargo}";
         }
     }
 }
