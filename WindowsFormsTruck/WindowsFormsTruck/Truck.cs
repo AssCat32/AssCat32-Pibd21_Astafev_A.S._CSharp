@@ -4,6 +4,7 @@ using System.Linq;
 using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace WindowsFormsTruck
 {
@@ -139,7 +140,5 @@ namespace WindowsFormsTruck
         {
             return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}";
         }
-
-     
     }
 }

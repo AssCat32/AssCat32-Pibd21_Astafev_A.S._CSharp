@@ -61,7 +61,9 @@ namespace WindowsFormsTruck
             {
                 throw new GarageOverflowException();
             }
+            
             p._places.Add(truck);
+
             return true;
         }
         /// <summary>
