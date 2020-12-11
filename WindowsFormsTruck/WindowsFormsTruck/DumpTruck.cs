@@ -10,7 +10,7 @@ namespace WindowsFormsTruck
     //<summary>
     //Класс отрисовки спортивного автомобиля
     //</summary>
-    class DumpTruck : Truck
+    class DumpTruck : Truck, IEquatable<DumpTruck>
     {
         //<summary>
         //Дополнительный цвет самосвала
@@ -145,6 +145,69 @@ namespace WindowsFormsTruck
         public override string ToString()
         {
             return $"{base.ToString()}{separator}{DopColor.Name}{separator}{Trailer}{separator}{Cargo}";
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEquatable для класса SportCar
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(DumpTruck other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (Trailer != other.Trailer)
+            {
+                return false;
+            }
+            if (Cargo != other.Cargo)
+            {
+                return false;
+            }
+            return true;
+
+        }
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is DumpTruck truckObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(truckObj);
+            }
         }
     }
 }
