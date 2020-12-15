@@ -4,10 +4,11 @@ using System.Linq;
 using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace WindowsFormsTruck
 {
-    public class Truck : Vehicle
+    public class Truck : Vehicle, IEquatable<Truck>
     {
 
         //<summary>
@@ -140,6 +141,56 @@ namespace WindowsFormsTruck
             return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}";
         }
 
-     
+        /// <summary>
+        /// Метод интерфейса IEquatable для класса Car
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Truck other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Truck carObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(carObj);
+            }
+        }
+
+
     }
 }

@@ -77,7 +77,9 @@ namespace WindowsFormsCars
                 {
                     return garageStages[ind];
                 }
-                return null;
+                else {
+                    return null;
+                } 
             }
         }
 
@@ -88,34 +90,31 @@ namespace WindowsFormsCars
         /// <returns></returns>
         public void SaveData(string filename)
         {
+            if (File.Exists(filename))
+            {
+                File.Delete(filename);
+            }
+
             using (StreamWriter sw = new StreamWriter(filename, false))
             {
-
                 sw.WriteLine($"GarageCollection", sw);
                 foreach (var level in garageStages)
                 {
                     //Начинаем парковку
                     sw.WriteLine($"Garage{separator}{level.Key}", sw);
-                    ITransport truck = null;
-                    for (int i = 0; (truck = level.Value.GetNext(i)) != null; i++)
+                    foreach (ITransport truck in level.Value)
                     {
-                        if (truck != null)
+                        //Записываем тип мшаины
+                        if (truck.GetType().Name == "Truck")
                         {
-                            //если место не пустое
-                            //Записываем тип машины
-                            if (truck.GetType().Name == "Truck")
-                            {
-                                sw.WriteLine($"Truck{separator}", sw);
-
-                            }
-                            if (truck.GetType().Name == "DumpTruck")
-                            {
-                                sw.WriteLine($"DumpTruck{separator}", sw);
-                            }
-                            //Записываемые параметры
-                            
-                            //sw.Write(truck + sw.NewLine, sw);
+                            sw.WriteLine($"Truck{separator}", sw);
                         }
+                        if (truck.GetType().Name == "DumpTruck")
+                        {
+                            sw.WriteLine($"DumpTruck{separator}", sw);
+                        }
+                        //Записываемые параметры
+                        sw.WriteLine(truck + Environment.NewLine, sw);
                     }
                 }
             }
@@ -143,7 +142,7 @@ namespace WindowsFormsCars
                     else
                     {
                         //если нет такой записи, то это не те данные
-                        throw new Exception("Неверный формат файла");
+                        throw new FileFormatException();
                     }
                     Vehicle truck = null;
                     string key = string.Empty;
@@ -171,7 +170,7 @@ namespace WindowsFormsCars
                         var result = garageStages[key] + truck;
                         if (!result)
                         {
-                            throw new Exception("Не удалось загрузить автомобиль на парковку");
+                            throw new GarageOccupiedPlaceException();
                         }
                     }
                 }

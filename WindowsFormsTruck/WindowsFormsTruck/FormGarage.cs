@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,10 +21,13 @@ namespace WindowsFormsTruck
   
 
         private readonly GarageCollection garageCollection;
+
+        private readonly Logger logger;
         public FormGarage()
         {
             InitializeComponent();
             garageCollection = new GarageCollection(pictureBoxGarage.Width, pictureBoxGarage.Height);
+            logger = LogManager.GetCurrentClassLogger();
         }
         /// <summary>
         /// Заполнение listBoxLevels
@@ -31,7 +35,9 @@ namespace WindowsFormsTruck
         private void ReloadLevels()
         {
             int index = listBoxGarage.SelectedIndex;
+
             listBoxGarage.Items.Clear();
+
             for (int i = 0; i < garageCollection.Keys.Count; i++)
             {
                 listBoxGarage.Items.Add(garageCollection.Keys[i]);
@@ -74,9 +80,11 @@ namespace WindowsFormsTruck
         {
             if (string.IsNullOrEmpty(textBoxNewLevelName.Text))
             {
+                logger.Warn($"При добавлении гаража отсутствовало название");
                 MessageBox.Show("Введите название парковки", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            logger.Info($"Добавили парковку {textBoxNewLevelName.Text}");
             garageCollection.AddGarage(textBoxNewLevelName.Text);
             ReloadLevels();
         }
@@ -91,6 +99,7 @@ namespace WindowsFormsTruck
             {
                 if (MessageBox.Show($"Удалить парковку {textBoxNewLevelName.Text}?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    logger.Info($"Удалили парковку {listBoxGarage.SelectedItem.ToString()}");
                     garageCollection.DelGarage(textBoxNewLevelName.Text);
                     ReloadLevels();
                 }
@@ -112,12 +121,14 @@ namespace WindowsFormsTruck
                     if (garageCollection[listBoxGarage.SelectedItem.ToString()] + truck)
                     {
                         Draw();
+                       
                     }
                     else
                     {
                         MessageBox.Show("Парковка переполнена");
                     }
                 }
+
             }
         }
         /// <summary>
@@ -142,7 +153,7 @@ namespace WindowsFormsTruck
                         }
                         else
                         {
-                            MessageBox.Show("Парковка переполнена");
+                            MessageBox.Show("Гаражи переполнены");
                         }
                     }
                 }
@@ -156,16 +167,31 @@ namespace WindowsFormsTruck
         private void buttonTakeTruck_Click(object sender, EventArgs e)
         {
             if (listBoxGarage.SelectedIndex > -1 && maskedTextBox.Text != "")
-            {
-                var car = garageCollection[listBoxGarage.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBox.Text);
-                if (car != null)
+            {   
+                try
                 {
-                    FormTruck form = new FormTruck();
-                    form.SetCar(car);
-                    form.ShowDialog();
+                    var truck = garageCollection[listBoxGarage.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBox.Text);
+                    if (truck != null)
+                    {
+                        FormTruck form = new FormTruck();
+                        form.SetCar(truck);
+                        form.ShowDialog();
+                        logger.Info($"Изъят грузовик {truck} с места {maskedTextBox.Text}");
+                        Draw();
+                    }
                 }
-                Draw();
+                catch (GarageNotFoundException ex)
+                {
+                    logger.Warn($"Грузовик по месту {maskedTextBox.Text} не найден");
+                    MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    logger.Warn("Возникла неизвестная ошибка");
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            Draw();
         }
         /// <summary>
         /// Метод обработки выбора элемента на listBoxLevels
@@ -175,6 +201,7 @@ namespace WindowsFormsTruck
 
         private void listBoxGarage_SelectedIndexChanged(object sender, EventArgs e)
         {
+            logger.Info($"Перешли на парковку {listBoxGarage.SelectedItem.ToString()}");
             Draw();
         }
 
@@ -197,13 +224,28 @@ namespace WindowsFormsTruck
         {
             if (truck != null && listBoxGarage.SelectedIndex > -1)
             {
-                if ((garageCollection[listBoxGarage.SelectedItem.ToString()]) + truck)
+                try
                 {
-                    Draw();
+                    if ((garageCollection[listBoxGarage.SelectedItem.ToString()]) + truck)
+                    {
+                        Draw();
+                        logger.Info($"Добавлен грузовик {truck}");
+                    }
+                    else
+                    {
+                        logger.Warn("Грузовик не удалось добавить в гараж");
+                        MessageBox.Show("Грузовик не удалось поставить");
+                    }
                 }
-                else
+                catch (GarageOverflowException ex)
                 {
-                    MessageBox.Show("Машину не удалось поставить");
+                    logger.Warn("Произошло переполнение гаражей");
+                    MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    logger.Warn("Возникла неизвестная ошибка");
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -218,14 +260,17 @@ namespace WindowsFormsTruck
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (garageCollection.SaveData(saveFileDialog.FileName))
-                {
+                try {
+                    garageCollection.SaveData(saveFileDialog.FileName);
                     MessageBox.Show("Сохранение прошло успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Не сохранилось", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Warn("Возникла неизвестная ошибка при сохранении");
                 }
+
             }
         }
 
@@ -236,16 +281,44 @@ namespace WindowsFormsTruck
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (garageCollection.LoadData(openFileDialog.FileName))
+                try
                 {
+                    garageCollection.LoadData(openFileDialog.FileName);
                     MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
                     ReloadLevels();
                     Draw();
                 }
-                else
+                catch (GarageOccupiedPlaceException ex)
                 {
-                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Warn("Не удалось загрузить поезд в депо");
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Warn("Возникла неизвестная ошибка при загрузке");
+                }
+            }
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void FormGarage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (listBoxGarage.SelectedIndex > -1)
+            {
+                garageCollection[listBoxGarage.SelectedItem.ToString()].Sort();
+                Draw();
+                logger.Info("Сортировка уровней");
             }
         }
     }
