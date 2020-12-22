@@ -100,21 +100,27 @@ namespace WindowsFormsCars
                 sw.WriteLine($"GarageCollection", sw);
                 foreach (var level in garageStages)
                 {
-                    //Начинаем парковку
                     sw.WriteLine($"Garage{separator}{level.Key}", sw);
-                    foreach (ITransport truck in level.Value)
+                    ITransport truck = null;
+                    for (int i = 0; (truck = level.Value.GetNext(i)) != null; i++)
                     {
-                        //Записываем тип мшаины
+                        if (truck != null)
+                        {
+                            //если место не пустое
+                        //Записываем тип машины
                         if (truck.GetType().Name == "Truck")
                         {
                             sw.WriteLine($"Truck{separator}", sw);
+
                         }
                         if (truck.GetType().Name == "DumpTruck")
                         {
                             sw.WriteLine($"DumpTruck{separator}", sw);
                         }
                         //Записываемые параметры
-                        sw.WriteLine(truck + Environment.NewLine, sw);
+                            
+                        sw.Write(truck + sw.NewLine, sw);
+                        }
                     }
                 }
             }

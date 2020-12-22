@@ -45,7 +45,6 @@
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
             this.maskedBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGarage)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -198,22 +197,11 @@
             // 
             this.saveFileDialog.Filter = "txt file | *.txt";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(747, 302);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(128, 37);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Сортировать";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FormGarage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 461);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonSetCar);
             this.Controls.Add(this.buttonDelParking);
             this.Controls.Add(this.listBoxGarage);
@@ -256,6 +244,5 @@
         private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
-        private System.Windows.Forms.Button button1;
     }
 }
