@@ -311,15 +311,5 @@ namespace WindowsFormsTruck
         {
 
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (listBoxGarage.SelectedIndex > -1)
-            {
-                garageCollection[listBoxGarage.SelectedItem.ToString()].Sort();
-                Draw();
-                logger.Info("Сортировка уровней");
-            }
-        }
     }
 }
